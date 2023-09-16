@@ -8,7 +8,7 @@ Notes about Red Text User Interface
 
 
 
-TUI is the new backend of [Red](https://github.com/red/red), our fantastic coding language. With it you can now create beautiful text intefaces to be used using window DOS console or other shells on different OS. Those interfaces where the only way to use computers in the DOS era and when BBS  run using dialup lines you access via Modem and VT100 like terminals (Link) 
+TUI is the new backend of [Red](https://github.com/red/red), our fantastic coding language. With it you can now create beautiful text intefaces to be used on Window or a Linux console or other shells on different OS. Those interfaces where the only way to use computers in the DOS era and when BBS  run using dialup lines you access via Modem and VT100 like terminals (Link) but all system still supports them.
 
 Here are some examples:
 
