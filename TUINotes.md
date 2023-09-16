@@ -253,40 +253,36 @@ Note that `VID` has a new keyword: `tight` , it is used to instruct the GUI syst
 
 (For an up to date list consult this [github repository directory](https://github.com/red/red/tree/TUI/modules/view/backends/terminal/widgets))
 
-## Table of VID elemenents
+## Table of VID elements
 
 
 
-| Widget  |                            | Example    | Data |      |      |      |      |      | Other |
-| ------- | -------------------------- | ---------- | ---- | ---- | ---- | ---- | ---- | ---- | ----- |
-| origin  |                            | origin 2z1 |      |      |      |      |      |      |       |
-| panel   | 30x20                      |            |      |      |      |      |      |      |       |
-| pad     | pad 1x0                    |            |      |      |      |      |      |      |       |
-| return  |                            |            |      |      |      |      |      |      |       |
-| button  | button 8x2 "next" [unview" |            |      |      |      |      |      |      |       |
-| show    | show page-1                |            |      |      |      |      |      |      |       |
-| unview  | e unview/all               |            |      |      |      |      |      |      |       |
-| offset  | ;/offset facet             |            |      |      |      |      |      |      |       |
-| origin  | origin 1x1                 |            |      |      |      |      |      |      |       |
-| space   | space 1x2                  |            |      |      |      |      |      |      |       |
-|         |                            |            |      |      |      |      |      |      |       |
-| window? |                            |            |      |      |      |      |      |      |       |
+| Widget     |                            | Other |
+| ---------- | -------------------------- | ----- |
+| origin     |                            |       |
+| panel      | 30x20                      |       |
+| pad        | pad 1x0                    |       |
+| return     |                            |       |
+| button     | button 8x2 "next" [unview" |       |
+| offset     | ;/offset facet             |       |
+| origin     | origin 1x1                 |       |
+| space  (?) | space 1x2                  |       |
+|            |                            |       |
+| window?    |                            |       |
 
 
 
-## Widgets Documentation
 
 
+### Characters size
 
-### Characters occupied space
+Normal character occupy `1x1` blocks of screen.
 
-Normal character occupy 1x1 blocks of screen.
-
-Emoji needs 2x1 blocks of screen. 
+Emoji needs `2x1` blocks of screen. 
 
 When you draw a `text`, if you use one or more emoji you should add 2 characters in `text` length for each emoticon used.
 
-
+## Widget documentation
 
 ### Text
 
