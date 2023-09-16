@@ -241,7 +241,7 @@ Note that `VID` has a new keyword: `tight` , it is used to instruct the GUI syst
 
 ## Table of supported widgets (TBD add images)
 
-| Windget name |                                                              |
+| Windget name | Description                                                  |
 | :----------- | ------------------------------------------------------------ |
 | button       | A cliccable button on screen                                 |
 | field        | A rectangle that can be used to enter text                   |
@@ -256,22 +256,21 @@ Note that `VID` has a new keyword: `tight` , it is used to instruct the GUI syst
 
 (For an up to date list consult this [github repository directory](https://github.com/red/red/tree/TUI/modules/view/backends/terminal/widgets))
 
-## Table of VID elements
+## Other VID elements
 
 
 
-| Widget     |                            | Other |
-| ---------- | -------------------------- | ----- |
-| origin     |                            |       |
-| panel      | 30x20                      |       |
-| pad        | pad 1x0                    |       |
-| return     |                            |       |
-| button     | button 8x2 "next" [unview" |       |
-| offset     | ;/offset facet             |       |
-| origin     | origin 1x1                 |       |
-| space  (?) | space 1x2                  |       |
-|            |                            |       |
-| window?    |                            |       |
+| Widget     | Description | Example        |
+| ---------- | ----------- | -------------- |
+| origin     |             |                |
+| panel      |             | 30x20          |
+| pad        |             | pad 1x0        |
+| return     |             |                |
+| offset     |             | ;/offset facet |
+| origin     |             | origin 1x1     |
+| space  (?) |             | space 1x2      |
+|            |             |                |
+| window?    |             |                |
 
 
 
@@ -580,6 +579,8 @@ These commands can be used to close you GUI
 ### Managin input
 
 #### On-Key
+
+(Explain how to associate to window)
 
 event/key
 
