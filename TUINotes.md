@@ -48,7 +48,7 @@ You need compile Red using [Rebol,](http://www.rebol.com) the ancestor of Red. D
 
 Now choose the version to download most suitable from your platform (you can use this link) [here](http://www.rebol.com/downloads.html) 
 
-<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915032041982_1694740987..png" alt="image-20230915032041982_1694740987..png" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916025433761.png" alt="image-20230916025433761" style="zoom: 67%;" />
 
 
 
