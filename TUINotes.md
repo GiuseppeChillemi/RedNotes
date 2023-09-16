@@ -560,49 +560,123 @@ A lot more events are available
 
 ### Facets
 
-Each face has a set of attributes. When you describe the GUI and VID interprets it, each face created is an object and each object has a set attributes with their value.
+Each `face` has a set of attributes. When you describe the GUI and VID interprets it, each face created is an object and each object has a set attributes with their value.
 
-As an example, if you create a text with:
+To analyze how a face is composed you need to create the GUI but you should not display it. To do this you must use the command `layout` instead of `view`. View calls layout and then display the GUI, `layout` just create the faces as described from the VID block. 
 
-Let's try IT:
-
-
+Let's create a simple `text` widget called TXT.  Enter the following code in the console.
 
 ```
-view/tight [
-	txt: text "Hello" 10x1
-	return
-	across
-	text "Size: " 7x1 font-color yellow  
-	text "" 7x1 font-color green data txt/size
+layout/tight [
+	txt: text "Hello" green 10x1
 ]
 ```
 
+Once you create it, you still have the cursor control. As we have given the name `TXT` to the `face`, we can display the its content in the console writing `probe txt`
 
 
-| Facet       | Note                | Description                                                  |
-| ----------- | ------------------- | ------------------------------------------------------------ |
-| `size`,     |                     | The size of widget as `integer`, `pair` or `point2d!`        |
-| `offset`,   |                     |                                                              |
-| `color`,    |                     |                                                              |
-| `enabled?`, |                     |                                                              |
-| `visible?`, |                     |                                                              |
-| `text`,     |                     |                                                              |
-| `rate`,     |                     | The number of times the on-time-event is triggered each second |
-| `font`,     | font/color only     |                                                              |
-| `para`,     |                     |                                                              |
-| `data`      | progress, text-list |                                                              |
-| `selected`  | only text-list      | The line of the selected text                                |
-| `draw`      | only TEXT           |                                                              |
-|             |                     |                                                              |
+
+![image-20230917005644829](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230917005644829.png) 
+
+
+
+It will appear the printout of an object with all its members and values. Those members are called FACETS and their content depends from the parameters used to describe it and from the engine itself.
+
+I have omitted the contant of `parent` and `pane` facets for readability. They will be addressed later.
+
+```
+make object! [
+    type: 'text
+    offset: 0x0
+    size: 10x1
+    text: "Hello"
+    image: none
+    color: 0.255.0
+    menu: none
+    data: none
+    enabled?: true
+    visible?: true
+    selected: none
+    flags: none
+    options: [style: text vid-align: top at-offset: none]
+    parent: make object! [>omitted<]
+    pane: none
+    state: none
+    rate: none
+    edge: none
+    para: none
+    font: none
+    actors: none
+    extra: none
+    draw: none
+]
+```
+
+Some facets are used to connect faces, other reflects the value you have entered in the description.
+
+Take a look at `text` facets. It contains the  `"Hello"` string; the `size` is set to `10x1` and color 0.255.0 is the value of full GREEN. (Triplette is RGB 8 bit) .
+
+Important mention to `parent` which has a backlink to the father object and `pane` that contain a links to the children the current object composed or is the container (a `panel` is such kind of face, it contains other faces in `pane` facet). They  are structural facets, they are needed to glue all the GUI parts.
+
+
+
+We will go deeper later. Actually is important to note that in this backend, only the following non structural ones have been implemented.
+
+| Facet      | Note                | Description                                                  |
+| ---------- | ------------------- | ------------------------------------------------------------ |
+| `size`     |                     | The size of widget as `integer`, `pair` or `point2d!`        |
+| `offset`   |                     |                                                              |
+| `color`    |                     |                                                              |
+| `enabled?` |                     |                                                              |
+| `visible?` |                     |                                                              |
+| `text`     |                     |                                                              |
+| `rate`     |                     | The number of times the on-time-event is triggered each second |
+| `font`     | font/color only     |                                                              |
+| `para`     |                     |                                                              |
+| `data`     | progress, text-list |                                                              |
+| `selected` | only text-list      | The line of the selected text                                |
+| `draw`     | only TEXT           |                                                              |
+|            |                     |                                                              |
+
+Those not mentioned in the previous table are USER definible and they are result of internal VID operations and reflects internal states, flags...
 
 ### The DATA facet
 
-(to be written)
+Faces store their visible values in 2 containers: `text` and `data`. The latter is managed only on `progress` and `text-list` widget. (TBD: look for field...)
+
+If you build a `text-list` with
+
+```
+layout/tight [mylist: text-list 10x5 data [blue mangenta yellow red brown blue]]
+```
+
+The `data` facet will contain that block of values.
+
+Run the code and `probe` it
+
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230917012058089.png" alt="image-20230917012058089" style="zoom:67%;" />
+
+
 
 ### With
 
-(to be written)
+This is a special keyword. It must be followed by a `block` with a list of all the attributes you want to set and the code to generate the value. It can be a simple one or a complex computation.
+
+```
+layout/tight [
+	mylist: text-list 10x5 with [data: load %alist.txt]
+]
+```
+
+Instead of expressing the content of the `data` facet directly you `load` the content from a file. 
+
+Not only data but many other user dependent facet can set inside the `with` block.
+
+Note: when `with` block is executed, has not been set so you can't access it. 
+
+(TBD: verify if previous faces are available)
+
+
 
 ## Widget documentation
 
@@ -837,21 +911,21 @@ draw [text 15x1 "This is a test" ]
 
 ### List of facets
 
-| Facet       | Note                | Description                                                  |
-| ----------- | ------------------- | ------------------------------------------------------------ |
-| `size`,     |                     | The size of widget as `integer`, `pair` or `point2d!`        |
-| `offset`,   |                     |                                                              |
-| `color`,    |                     |                                                              |
-| `enabled?`, |                     |                                                              |
-| `visible?`, |                     |                                                              |
-| `text`,     |                     |                                                              |
-| `rate`,     |                     | The number of times the on-time-event is triggered each second |
-| `font`,     | font/color only     |                                                              |
-| `para`,     |                     |                                                              |
-| `data`      | progress, text-list |                                                              |
-| `selected`  | only text-list      | The line of the selected text                                |
-| `draw`      | only TEXT           |                                                              |
-|             |                     |                                                              |
+| Facet      | Note                | Description                                                  |
+| ---------- | ------------------- | ------------------------------------------------------------ |
+| `size`     |                     | The size of widget as `integer`, `pair` or `point2d!`        |
+| `offset`   |                     |                                                              |
+| `color`    |                     |                                                              |
+| `enabled?` |                     |                                                              |
+| `visible?` |                     |                                                              |
+| `text`     |                     |                                                              |
+| `rate`     |                     | The number of times the on-time-event is triggered each second |
+| `font`     | font/color only     |                                                              |
+| `para`     |                     |                                                              |
+| `data`     | progress, text-list |                                                              |
+| `selected` | only text-list      | The line of the selected text                                |
+| `draw`     | only TEXT           |                                                              |
+|            |                     |                                                              |
 
 
 
@@ -929,7 +1003,17 @@ on-key [if event/key = #"^[" [unview/all]]
 
 [table of KEY events]
 
-#### Timers
+### Manage mouse events
+
+### Events processed
+
+To activate mouse processing:
+
+`system/view/platform/mouse-event?: yes`
+
+`base 30x5 all-over center middle "moving mouse on here"`
+
+### Timers
 
 Rate
 
@@ -937,13 +1021,7 @@ on-time
 
 
 
-#### Events processed
 
-To activate mouse processing:
-
-`system/view/platform/mouse-event?: yes`
-
-`base 30x5 all-over center middle "moving mouse on here"`
 
 ### Focus Chain
 
@@ -961,7 +1039,7 @@ You can also use a child base face. Sets the `face/offset` to the place you want
 
 ### Changing an area content
 
-
+## Advanced topics
 
 ## Ansi 
 
@@ -1054,7 +1132,7 @@ Color16 TAble
 
 
 
-## To investigate
+## Go deeper at:
 
 
 
@@ -1112,6 +1190,84 @@ Widgets.red
 		sym = rich-text [init-rich-text widget]
 		true			[0]
 	]
+
+
+
+```
+make object! [
+    type: 'text
+    offset: 0x0
+    size: 10x1
+    text: "Hello"
+    image: none
+    color: 0.255.0
+    menu: none
+    data: none
+    enabled?: true
+    visible?: true
+    selected: none
+    flags: none
+    options: [style: text vid-align: top at-offset: none]
+    parent: make object! [
+        type: 'window
+        offset: none
+        size: 10x1
+        text: none
+        image: none
+        color: none
+        menu: none
+        data: none
+        enabled?: true
+        visible?: true
+        selected: none
+        flags: none
+        options: none
+        parent: make object! [
+            type: 'screen
+            offset: 0x0
+            size: 120x30
+            text: none
+            image: none
+            color: none
+            menu: none
+            data: none
+            enabled?: true
+            visible?: true
+            selected: none
+            flags: none
+            options: none
+            parent: none
+            pane: []
+            state: [handle! 0 none [1]]
+            rate: none
+            edge: none
+            para: none
+            font: none
+            actors: none
+            extra: none
+            draw: none
+        ]
+        pane: [make object! [...]]
+        state: none
+        rate: none
+        edge: none
+        para: none
+        font: none
+        actors: none
+        extra: none
+        draw: none
+    ]
+    pane: none
+    state: none
+    rate: none
+    edge: none
+    para: none
+    font: none
+    actors: none
+    extra: none
+    draw: none
+]
+```
 
 
 
