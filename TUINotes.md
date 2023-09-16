@@ -367,14 +367,18 @@ Display rectangular button. You can navigate from one to another using TAB. To p
 ```
 view/tight [
 	origin 3x3
-	text "Hit one button: " 25x1 font-color green return
+	text "Hit a button: " 25x1 font-color green return
 	pad 0x1
 	button "click me" 20x1 [face/text: "Thank you"] 
 	button "or click here" 20x1 [face/text: "Thank you again!"] 
 ]
 ```
 
-![image-20230916021100316](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916021100316.png)
+
+
+![image-20230916025733616](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916025733616.png)
+
+
 
 Special events:
 
