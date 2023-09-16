@@ -159,11 +159,11 @@ Modern editors provide syntax highlighting of the code so it is easier to read (
 
 ## Using Tui
 
-#### For new users
+### For new users
 
 If you have never used VID, it is a GUI description language (a dialect of Red). With few words you are able to build complete interfaces using natural sounding sequence of commands.  Each visual elements is built on top of an inner structure called `face` that is created when you ask VIEW to interpret you textual description. 
 
-#### For experienced users
+### For experienced users
 
 If you know View and VID, using TUI a breeze as the same concept applies. Widgets, are just textual but each one is a `face` as usual, have `facets` and `events. ` A subset of the VID keywords are available for TUI:  like `TEXT`, `BUTTON`, `TEXT-LIST`, `PANEL...`(full list ahead)
 
@@ -213,7 +213,7 @@ View/tight [
 
 <img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915030217359_1694740404..png" alt="image-20230915030217359" style="zoom: 50%;" />
 
-### Giving the GUI element a name
+### Giving the GUI elements a name
 
 As written before, every GUI element you have created is build on top of a `face` , if you need to access it you must ask to the `VID` engine to assign a name. This is needed if you want to later modify things.
 
@@ -229,7 +229,7 @@ Do you see  `TXT:` ? Now if you want to access this GUI element you can do this 
 
   
 
-#### A GUI with buttons
+### Adding buttons
 
 Having 2 clickable text buttons is as simple as writing `Button "Press Me"` inside the description block.
 
@@ -280,7 +280,7 @@ VIEW/Tight [
 
 If you don't need to display the GUI immediately and select later from a set of GUIs PAGES you need to use LAYOUT for this.
 
-## Creating the GUI: Layout
+### Creating the GUI: Layout
 
 VIEW is a command that displays a group of GUI objects. It calls the `layout` command that creates them. You can multiple of such object by hand and display them on screen on request.
 
@@ -303,54 +303,256 @@ The `layout` command processes the block and creates a graphical object with all
 
 
 
-## Panels and positioning
+### Panels and positioning
 
-(to be written)
+VID let you use rectangular containers to group gui elements. Each container has its own life inside a window and moving it you move all the elements inside of it. To create a container is as simple as writing `panel [>gui elements here< ]`
+
+You can even better express a dimension:
+
+`panel 30x20 [>gui elements here< ]`
+
+Here is an example:
+
+```
+View/tight [
+	
+	panel 30x20 [
+		txt: Text "Panel One!" 14x1 red font-color green
+        return
+        pad 0x2
+        Button "Press Me" 8x1 blue [txt/text: "Pressed!" Txt/font/color: white]
+        pad 10x0
+        Button "Quit" 8x1 [unview]   
+	]
+	
+	;return
+	
+	panel 30x20 [
+		txt: Text "Another PANEL!" 14x1 red font-color blue
+        return
+        pad 0x2
+        Button "Press Me" 8x1 blue [txt/text: "Pressed!" Txt/font/color: white]
+        pad 10x0
+        Button "Quit" 8x1 [unview]   
+	]
+	
+]
+```
+
+Try it and keep an eyer to the `return` keyword.
+
+This is the result.  Press TAB to navigate and ENTER to select someting
+
+![image-20230916173648281](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916173648281.png)
+
+Red VID has created 2 rectangular panels and each element is drawn relative to it. You only need to uncomment the `return` command to change everything. Just remove the `semicolon` tun the code again.
+
+ 
+
+![image-20230916173813107](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916173813107.png)
+
+By default, Red adds GUI elements from left to right, when it encounters `return` as a word processor (in 1980 I would have used the term "typewriter!") , it continues in a newline and resets its position continuing from the far left. If the previous elements have a maximum eight of 20 lines, then it starts drawing from line 21 (if there is no `PAD`ing or margins) (TBD: verify this affirmation)
+
+This working is regulated by the word `ACROSS` which you don't see but it is implicit when the GUI is built.
+
+You have the same effect starting the description of the interface in this way:
+
+```
+View/tight [
+
+	across
+	
+	panel 30x20 [
+		txt: Text "Panel One!" 14x1 red font-color green
+		...
+		...
+```
 
 
 
-## Table of supported widgets (TBD add images)
+The other available mode is BELOW. It acts in the opposite way: you draw from TOP to BOTTOM: 
 
-| Windget name | Description                                                  |
-| :----------- | ------------------------------------------------------------ |
-| button       | A cliccable button on screen                                 |
-| field        | A rectangle that can be used to enter text                   |
-| progress     | Progress bar                                                 |
-| rich-text    | Draw text with different colors and styles                   |
-| text         | Simple text on screen                                        |
-| text-list    | List of of elements you can navigate with cursors and choose |
-| base         | a rectangle with wrappable text inside                       |
-| Panel        | a container for all the above elements                       |
-|              |                                                              |
-|              |                                                              |
+Try it by yourself:
+
+
+
+```
+View/tight [
+
+	below; <<<<<---- Note this difference
+	
+	panel 30x20 [
+		txt: Text "Panel One!" 14x1 red font-color green
+        return
+        pad 0x2
+        Button "Press Me" 8x1 blue [txt/text: "Pressed!" Txt/font/color: white]
+        pad 10x0
+        Button "Quit" 8x1 [unview]   
+	]
+	
+	return
+	
+	panel 30x20 [
+		txt: Text "Another PANEL!" 14x1 red font-color blue
+        return
+        pad 0x2
+        Button "Press Me" 8x1 blue [txt/text: "Pressed!" Txt/font/color: white]
+        pad 10x0
+        Button "Quit" 8x1 [unview]   
+	]
+	
+]
+```
+
+
+
+
+
+The result is the same as using `ACROSSS` and `RETURN`
+
+
+
+![image-20230916173813107](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916173813107.png)
+
+
+
+Now uncomment  `return` in the middle:
+
+![image-20230916173648281](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916173648281.png)
+
+And you have the same result of the first code written for panels!
+
+
+
+### Table of supported widgets (TBD add images)
+
+This is a list all the widgets implemented in RED TUI (as of 16/09/2023 (DD/MM/YYYY))
+
+| Widget name | Description                                                  |
+| :---------- | ------------------------------------------------------------ |
+| button      | A cliccable button on screen                                 |
+| field       | A rectangle that can be used to enter text                   |
+| progress    | Progress bar                                                 |
+| rich-text   | Draw text with different colors and styles                   |
+| text        | Simple text on screen                                        |
+| text-list   | List of of elements you can navigate with cursors and choose |
+| base        | a rectangle with wrappable text inside                       |
+| Panel       | a container for all the above elements                       |
+|             |                                                              |
+|             |                                                              |
 
 (For an up to date list consult this [github repository directory](https://github.com/red/red/tree/TUI/modules/view/backends/terminal/widgets))
 
-## Other VID elements
+### The coordinate system
+
+The `VIEW` engine has a coordinate system that range from `0x0` to infinite. They rapresents horizontal lines and columns. They are expressed as `HxY` pair. This origin corresponds to the upper left angle of the console, where is printed the first character if you don't change this.
 
 
 
-| Widget     | Description | Example        |
-| ---------- | ----------- | -------------- |
-| origin     |             |                |
-| panel      |             | 30x20          |
-| pad        |             | pad 1x0        |
-| return     |             |                |
-| offset     |             | ;/offset facet |
-| origin     |             | origin 1x1     |
-| space  (?) |             | space 1x2      |
-|            |             |                |
-| window?    |             |                |
 
 
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916180550535.png" alt="image-20230916180550535" style="zoom: 67%;" />
 
-### Characters size
+(TBD: View if you can change the origin)
+
+#### Characters size
 
 Normal character occupy `1x1` blocks of screen.
 
 Emoji needs `2x1` blocks of screen. 
 
 When you draw a `text`, if you use one or more emoji you should add 2 characters in `text` length for each emoticon used.
+
+#### VID Positioning keywords
+
+To govern the positioning of GUI elements, other commands  are available in VID. You have already encountered `return` but there are a lot more.
+
+
+
+| Widget     | Arguments | Description                             |
+| ---------- | --------- | --------------------------------------- |
+| origin     |           | Set the origin of the coordinate system |
+| pad        | 1x0       |                                         |
+|            |           |                                         |
+| origin     | 1x2       | TBD: `/origin facet`                    |
+| space  (?) | 1x2       |                                         |
+| return     |           |                                         |
+| window?    |           |                                         |
+
+TBD: test if `offset` exists
+
+### Events
+
+When you display a GUI, a lot of events happens, either internally or caused by the user. As an example, when you show a button, the system start waiting for someone pressing `ENTER` on the text button. When such input is received, the default event is triggered. Look at thhe "Hello TUI" code:
+
+
+
+```
+View/tight [
+	txt: Text "Hello TUI!" 10x1 red font-color green
+	return
+	pad 0x2
+	Button "Press Me" 8x1 blue [txt/text: "Pressed!" Txt/font/color: white]
+	pad 10x0
+	Button "Quit" 8x1 [unview]   
+]
+```
+
+
+
+The line that describes the button ends with code inside square brackets.
+
+```
+Button "Press Me" 8x1 blue [txt/text: "Pressed!" Txt/font/color: white]
+```
+
+This is the code executed when the user hits `enter`
+
+`Button` has another event you can use: `on-dbl-click` . This is triggered when the user hits 2 times consecutively the button when it has focus. To configure it add its name after the first code block and then the code to execute
+
+
+
+```
+Button "Press Me" 8x1 blue [
+		txt/text: "Pressed!" Txt/font/color: white
+	] on-dbl-click [
+		txt/text: "2 Times!" Txt/font/color: white	
+	]
+```
+
+(TBD: review indenting stule)
+
+Inner events are those triggered by something from the inside of Red interpreter or the OS. For example, if you add the keyword `RATE` to a widget followed by a `number`, the `on-time` event will execute your code `number` of times per second. Think about a text which changes its color 2 times a second. You just need to write only 
+
+```
+view/tight [
+	text "Rainbow" font-color red 10x1 rate 10 on-time [
+		face/font/color: random white ;Here you set the color
+		face/text: "Rainbow"	;here you rewrite the text with the new color
+	]
+] 
+```
+
+A lot more events are available
+
+| Event           |      |                                      |
+| --------------- | ---- | ------------------------------------ |
+| on-event        |      |                                      |
+| on-over         |      | event/offset <br />event/flags       |
+| on-down         |      | event/offset                         |
+| on-up           |      | event/offset                         |
+| on-mid-down     |      | event/offset                         |
+| on-mid-up       |      | event/offset                         |
+| on-alt-down     |      | event/offset                         |
+| on-alt-up       |      | event/offset                         |
+| on-wheel        |      | mold event/picked <br />event/offset |
+| on-dbl-click    |      |                                      |
+|                 |      |                                      |
+| `on-time`(?)    |      |                                      |
+| `on-create`(?)  |      |                                      |
+| `on-created`(?) |      |                                      |
+
+
 
 ## Widget documentation
 
@@ -626,6 +828,8 @@ These commands can be used to close you GUI
 
 
 ## List of supported actors
+
+
 
 | Event           |      |                                      |
 | --------------- | ---- | ------------------------------------ |
