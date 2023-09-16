@@ -215,9 +215,13 @@ View/tight [
 
 ### Giving the GUI elements a name
 
-As written before, every GUI element you have created is build on top of a `face` , if you need to access it you must ask to the `VID` engine to assign a name. This is needed if you want to later modify things.
+As written before, every GUI element you have created is build on top of a `face` 
 
-To do this, you must add the name you want to give to the `face` object before its description as follow:
+The `face` word can be used to access the inner values of the widget like `face/size` or `face/text` but you can do this only from the inner block of code following each widget definition.
+
+Otherwise, if you need to access another face from the inside of a widget you must ask to the `VID` engine to assign a name. This is needed if you want to later view or modify things.
+
+To do this, simply add the name you want to give to the `face` object before its description as follow:
 
 ```
 View/tight [
@@ -343,13 +347,13 @@ Try it and keep an eyer to the `return` keyword.
 
 This is the result.  Press TAB to navigate and ENTER to select someting
 
-![image-20230916173648281](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916173648281.png)
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916173648281.png" alt="image-20230916173648281" style="zoom:67%;" />
 
 Red VID has created 2 rectangular panels and each element is drawn relative to it. You only need to uncomment the `return` command to change everything. Just remove the `semicolon` tun the code again.
 
  
 
-![image-20230916173813107](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916173813107.png)
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916173813107.png" alt="image-20230916173813107" style="zoom:67%;" />
 
 By default, Red adds GUI elements from left to right, when it encounters `return` as a word processor (in 1980 I would have used the term "typewriter!") , it continues in a newline and resets its position continuing from the far left. If the previous elements have a maximum eight of 20 lines, then it starts drawing from line 21 (if there is no `PAD`ing or margins) (TBD: verify this affirmation)
 
@@ -390,7 +394,7 @@ View/tight [
         Button "Quit" 8x1 [unview]   
 	]
 	
-	return
+	;return
 	
 	panel 30x20 [
 		txt: Text "Another PANEL!" 14x1 red font-color blue
@@ -412,13 +416,15 @@ The result is the same as using `ACROSSS` and `RETURN`
 
 
 
-![image-20230916173813107](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916173813107.png)
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916173813107.png" alt="image-20230916173813107" style="zoom:67%;" />
 
 
 
 Now uncomment  `return` in the middle:
 
-![image-20230916173648281](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916173648281.png)
+
+
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916173648281.png" alt="image-20230916173648281" style="zoom:67%;" />
 
 And you have the same result of the first code written for panels!
 
@@ -552,7 +558,51 @@ A lot more events are available
 | `on-create`(?)  |      |                                      |
 | `on-created`(?) |      |                                      |
 
+### Facets
 
+Each face has a set of attributes. When you describe the GUI and VID interprets it, each face created is an object and each object has a set attributes with their value.
+
+As an example, if you create a text with:
+
+Let's try IT:
+
+
+
+```
+view/tight [
+	txt: text "Hello" 10x1
+	return
+	across
+	text "Size: " 7x1 font-color yellow  
+	text "" 7x1 font-color green data txt/size
+]
+```
+
+
+
+| Facet       | Note                | Description                                                  |
+| ----------- | ------------------- | ------------------------------------------------------------ |
+| `size`,     |                     | The size of widget as `integer`, `pair` or `point2d!`        |
+| `offset`,   |                     |                                                              |
+| `color`,    |                     |                                                              |
+| `enabled?`, |                     |                                                              |
+| `visible?`, |                     |                                                              |
+| `text`,     |                     |                                                              |
+| `rate`,     |                     | The number of times the on-time-event is triggered each second |
+| `font`,     | font/color only     |                                                              |
+| `para`,     |                     |                                                              |
+| `data`      | progress, text-list |                                                              |
+| `selected`  | only text-list      | The line of the selected text                                |
+| `draw`      | only TEXT           |                                                              |
+|             |                     |                                                              |
+
+### The DATA facet
+
+(to be written)
+
+### With
+
+(to be written)
 
 ## Widget documentation
 
@@ -803,9 +853,9 @@ draw [text 15x1 "This is a test" ]
 | `draw`      | only TEXT           |                                                              |
 |             |                     |                                                              |
 
-### With
 
-(to be written)
+
+
 
 ### Colors palette
 
