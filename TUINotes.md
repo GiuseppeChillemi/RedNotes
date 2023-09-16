@@ -241,15 +241,18 @@ Note that `VID` has a new keyword: `tight` , it is used to instruct the GUI syst
 
 ## Table of supported widgets (TBD add images)
 
-|           |      |
-| :-------- | ---- |
-| button    |      |
-| field     |      |
-| progress  |      |
-| rich-text |      |
-| text      |      |
-| text-list |      |
-| base      |      |
+| Windget name |                                                              |
+| :----------- | ------------------------------------------------------------ |
+| button       | A cliccable button on screen                                 |
+| field        | A rectangle that can be used to enter text                   |
+| progress     | Progress bar                                                 |
+| rich-text    | Draw text with different colors and styles                   |
+| text         | Simple text on screen                                        |
+| text-list    | List of of elements you can navigate with cursors and choose |
+| base         | a rectangle with wrappable text inside                       |
+| Panel        | a container for all the above elements                       |
+|              |                                                              |
+|              |                                                              |
 
 (For an up to date list consult this [github repository directory](https://github.com/red/red/tree/TUI/modules/view/backends/terminal/widgets))
 
@@ -269,8 +272,6 @@ Note that `VID` has a new keyword: `tight` , it is used to instruct the GUI syst
 | space  (?) | space 1x2                  |       |
 |            |                            |       |
 | window?    |                            |       |
-
-
 
 
 
@@ -504,32 +505,32 @@ draw [text 15x1 "This is a test" ]
 | `rate`        | Followed by a number, generates an `on-time` event number of times per seconds |
 | `transparent` | set the background color to the one of the base face (verify) |
 | `loose`       |                                                              |
-| password      |                                                              |
+| `password`    |                                                              |
 |               |                                                              |
 
 
 
 ### List of facets
 
-| Facet       | Note                                                         | Description                                           |
-| ----------- | ------------------------------------------------------------ | ----------------------------------------------------- |
-| `size`,     |                                                              | The size of widget as `integer`, `pair` or `point2d!` |
-| `offset`,   |                                                              |                                                       |
-| `color`,    |                                                              |                                                       |
-| `enabled?`, |                                                              |                                                       |
-| `visible?`, |                                                              |                                                       |
-| `text`,     |                                                              |                                                       |
-| `rate`,     | The number of times the on-time-event is triggered each second | The rate of the on-time event                         |
-| `font`,     |                                                              | font/color only                                       |
-| `para`,     |                                                              |                                                       |
-| `data`      |                                                              | progress, text-list                                   |
-| `selected`  | The line of the selected text                                | only text-list                                        |
-| `draw`      |                                                              | only TEXT                                             |
-|             |                                                              |                                                       |
+| Facet       | Note                | Description                                                  |
+| ----------- | ------------------- | ------------------------------------------------------------ |
+| `size`,     |                     | The size of widget as `integer`, `pair` or `point2d!`        |
+| `offset`,   |                     |                                                              |
+| `color`,    |                     |                                                              |
+| `enabled?`, |                     |                                                              |
+| `visible?`, |                     |                                                              |
+| `text`,     |                     |                                                              |
+| `rate`,     |                     | The number of times the on-time-event is triggered each second |
+| `font`,     | font/color only     |                                                              |
+| `para`,     |                     |                                                              |
+| `data`      | progress, text-list |                                                              |
+| `selected`  | only text-list      | The line of the selected text                                |
+| `draw`      | only TEXT           |                                                              |
+|             |                     |                                                              |
 
 ### With
 
-
+(to be written)
 
 ### Colors palette
 
@@ -537,9 +538,9 @@ draw [text 15x1 "This is a test" ]
 | ------------- |
 | To be written |
 
+## Viewing the GUI
 
-
-
+(to be written)
 
 ### Unloading the GUI
 
