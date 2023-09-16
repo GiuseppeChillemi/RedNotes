@@ -125,7 +125,7 @@ Run Rebol and enter this command in the console:
 
 If everything has been done properly, you will find the file `console.exe` (an executable) in the same directory where Rebol il located
 
-![image-20230916145215199](./image-20230916145215199.png)
+![image-20230916145215199](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916145215199.png)
 
 Now you are ready to go! Open the red console and run your first commands.
 
