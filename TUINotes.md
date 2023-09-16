@@ -8,9 +8,11 @@ Notes about Red Text User Interface
 
 
 
-TUI is the new backend of [Red](https://github.com/red/red), our fantastic coding language. With it you can now create beautiful text intefaces to be used on Window or a Linux console or other shells on different OS. Those interfaces where the only way to use computers in the DOS era and when BBS  run using dialup lines you access via Modem and VT100 like terminals (Link) but all system still supports them.
+TUI is the new backend of [Red](https://github.com/red/red), our fantastic coding language. With it you can now create beautiful text intefaces to be used on Window or a Linux console or other shells on different OS. Those interfaces where the only way to use computers in the [DOS](https://en.wikipedia.org/wiki/DOS) and [Unix](https://en.wikipedia.org/wiki/Unix) era. Also, text interfaces were the foundation of the first interconnected devices, when [BBS](https://en.wikipedia.org/wiki/Bulletin_board_system)  run on dialup lines and you access via modem and [VT100](https://en.wikipedia.org/wiki/VT100) like terminals but all system still supports them.
 
-Here are some examples:
+
+
+Here are some examples of textual intefaces from TUI
 
 
 
@@ -34,7 +36,7 @@ You should know
 
 [Red](https://www.red-lang.org/), a fantastic programming language
 
-VID, the Visual Inteface Dialect, which red uses to build visual interfaces
+[VID](https://github.com/red/docs/blob/master/en/gui.adoc), the Visual Inteface Dialect, which red uses to build visual interfaces
 
 ### Installing and running Red TUI
 
@@ -46,7 +48,7 @@ You need compile Red using [Rebol,](http://www.rebol.com) the ancestor of Red. D
 
 
 
-Now choose the version to download most suitable from your platform (you can use this link) [here](http://www.rebol.com/downloads.html) 
+Now choose the version to download most suitable from your platform. 
 
 <img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916025433761.png" alt="image-20230916025433761" style="zoom: 67%;" />
 
@@ -56,13 +58,21 @@ Now choose the version to download most suitable from your platform (you can use
 
 
 
-Once downloaded, put Rebol in the same directory where the Red one is located (but not inside of it!)
+Once downloaded, store Rebol in the same directory where the Red one is located (but not inside of it!)
 
-Before continuing you need to modify the header of the file `console.red` in the Red folder:
+
+
+![image-20230916144344021](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916144344021.png)
+
+Before continuing you need to modify the header of the file `console.red` in the Red folder. (This until TUI will be officially merged into Red Master)
+
+
+
+![image-20230916144546394](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916144546394.png)
 
 `red/environment/console/cli/console.red`
 
-You can use Notepad on windows to change console.red from this
+You can use Notepad on windows to change `console.red` from this
 
 ```
 Red [
@@ -98,9 +108,9 @@ Red [
 ]
 ```
 
-Note the `Config:` line and the adding of `VIEW` to `Needs` 
+Note the `Config:` line and the adding of `VIEW` to `Needs:` 
 
-(Remove the arrows and the semicolon)
+(Remove the arrows and the semicolon `;` in the saved file, they are here as comments to show the correct position but they are unuseful in the final file.
 
 ### Compiling
 
@@ -113,25 +123,57 @@ Run Rebol and enter this command in the console:
 
 <img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915025821887_1694740328..png" alt="image-20230915025821887" style="zoom:67%;" />
 
-If everything has been done properly, you will fine the file `console.red` in the same directory where Rebol il located
+If everything has been done properly, you will find the file `console.exe` (an executable) in the same directory where Rebol il located
 
-Now you are ready to go!
+![image-20230916145215199](./image-20230916145215199.png)
+
+Now you are ready to go! Open the red console and run your first commands.
 
 This guide presumes you are familiar with Red language, if you are not, learn it, you won't regreet.
 
+## Running the examples
+
+If you are familiar with Red, skip this section.
+
+For new users, Red code can be written in the console when short
+
+
+
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916150039485.png" alt="image-20230916150039485" style="zoom: 67%;" />
+
+
+
+ Otherwise you need an editor like Notepad (build in in windows), Notepad+, VScode, UltraEdit. The first examples are concise and can be written in the console without using them but longer needs to be written with a good coding instrument and stored in a file.
+
+
+
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916150334662.png" alt="image-20230916150334662" style="zoom:80%;" />
+
+Modern editors provide syntax highlighting of the code so it is easier to read (even for 2 decades we have lived without this!). If you want to use them, store in directory named `scripts` or `code` (or anything you want) and run the test as follow:
+
+
+
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916150702596.png" alt="image-20230916150702596" style="zoom: 80%;" />
+
+
+
 ## Using Tui
 
+#### For new users
 
+If you have never used VID, it is a GUI description language (a dialect of Red). With few words you are able to build complete interfaces using natural sounding sequence of commands.  Each visual elements is built on top of an inner structure called `face` that is created when you ask VIEW to interpret you textual description. 
 
-If you are familiar with View and VID, using TUI is a breeze.
+#### For experienced users
 
-A subset of the VID keywords are available for TUI:  like `TEXT`, `BUTTON`, `TEXT-LIST`, `PANEL...`(full list ahead)
+If you know View and VID, using TUI a breeze as the same concept applies. Widgets, are just textual but each one is a `face` as usual, have `facets` and `events. ` A subset of the VID keywords are available for TUI:  like `TEXT`, `BUTTON`, `TEXT-LIST`, `PANEL...`(full list ahead)
 
 The output is arranged in columns so `face/offset` returns `integer` and not `float!`
 
 The origin of the screen are `0x0` (X, Y)  
 
-Lets create our first Textual GUI
+### Now we can start
+
+Lets create our first Textual GUI, run the console and write:
 
 ```
 View/tight [
@@ -143,7 +185,7 @@ The you will see this:
 
 ![image-20230915030028965](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915030028965_1694740335..png)
 
-
+This is your first textual interface. You have asked Red to `VIEW` a GUI made of  the `TEXT` "Hello TUI!" display it on `1` line of `10` caracters with `10x1` (HxV `PAIR!`) with a ``green` `font-color`. Easy, isn't it!?
 
 
 
@@ -157,9 +199,7 @@ View/tight [
 
 ![image-20230915030139337](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915030139337_1694740393..png)
 
-
-
-If you don't express the size of the text...
+Now lets try to see what happens if you don't express the size of the text removing `10x1`
 
 ```
 View/tight [
@@ -167,21 +207,37 @@ View/tight [
 ]
 ```
 
-...The backgroud color will fill all the surrounding area upto, so it is important to set a size as `XxY` pair
+...The backgroud color will fill all the surrounding area up to the default size the VID creator has hardcoded into the language, so it is important to set a size as `HxV` pair if you don't want to fill the whole GUI with you choosen color!
+
+ 
 
 <img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915030217359_1694740404..png" alt="image-20230915030217359" style="zoom: 50%;" />
 
+### Giving the GUI element a name
 
+As written before, every GUI element you have created is build on top of a `face` , if you need to access it you must ask to the `VID` engine to assign a name. This is needed if you want to later modify things.
+
+To do this, you must add the name you want to give to the `face` object before its description as follow:
+
+```
+View/tight [
+	txt: Text "Hello TUI!" red font-color green
+]
+```
+
+Do you see  `TXT:` ? Now if you want to access this GUI element you can do this from everywhere. If you need to change the text, simply write:  `TXT/text: "My new text"`
+
+  
 
 #### A GUI with buttons
 
-Having 2 cliccable text button is as simple as writing `Button "Press Me"` inside the description block.
+Having 2 clickable text buttons is as simple as writing `Button "Press Me"` inside the description block.
 
 Let's add 2 buttons under the "Hello TUI!" text:
 
 ![image-20230915030913239](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915030913239_1694740426..png)
 
-We have completed previus script adding 2 buttons
+We have used the previous script to do this, adding some parts. `return` and `pad` and `[unview]`will be explained later, you just need to concentrate on the `button` lines 
 
 ```
 View/tight [
@@ -194,42 +250,56 @@ View/tight [
 ]
 ```
 
-As usual with VID, `Button ..` is followed by a code block, it is executed once clicked.
+If after a description of a GUI element you add a block `[<code here>]`, it is executed when the default event associated with it is triggered. In this case, if the end user hits `enter` on the keyboard, the code is run if it exists.
 
 In TUI you move from a gui element to another pressing `TAB` and you click the button hitting `ENTER`
 
-Now use TAB to alternate between "Press Me" and "Quit". Choose "Press Me" and hit return to see what happens.... Have you seen a change on "Hello TUI?" If so, it's perfect! Everything is working as expected
+**Let's try it!**
+
+Now run the code and use TAB to alternate between "Press Me" and "Quit". Choose "Press Me" and hit return to see what happens.... 
+
+... Have you seen a change on "Hello TUI?" If so, it's perfect! Everything is working as expected
 
 If you press `Quit` the `UNVIEW` command is executed and the last open text "window" is closed
 
 
 
-Feel free to experiment with above code!
+Feel free to experiment with above code changing the text, color or adding another button
 
+### VIEW
 
+To display the GUI, everything you need is the command `VIEW` followed by a block
 
-## Layout
+`VIEW` has a new keyword: `tight` , it is used to instruct the GUI system to have no margins.
+
+```
+VIEW/Tight [
+   >GUI here<
+]
+```
+
+If you don't need to display the GUI immediately and select later from a set of GUIs PAGES you need to use LAYOUT for this.
+
+## Creating the GUI: Layout
 
 VIEW is a command that displays a group of GUI objects. It calls the `layout` command that creates them. You can multiple of such object by hand and display them on screen on request.
 
  ```
- screen1: layout/tight [
+ page-1: layout/tight [
  	Button "Turn On Light" 10x1 green font-color yellow [<Do something here>]
  ]
  
- screen2: layout/tight [
+ page-0: layout/tight [
  	Text "Another screen" 20x1
  	Button "Switch off Light" 10x1 red font-color yellow [<Do something here>]
  ]
  
- View screen1
+ View page-0
  ```
 
 
 
-The `layout` command processes the block and creates a graphical object with all the GUI elements of both screens. You can later choose which one to display using `view screen1` or `view screen2`
-
-Note that `VID` has a new keyword: `tight` , it is used to instruct the GUI system to have no margins.
+The `layout` command processes the block and creates a graphical object with all the GUI elements of both screens. As seen for faces, you can give a name to the layouts writing `page-0:` or `page-1:`. You can later choose which one to display using `view screen1` or `view screen2` (without colon)
 
 
 
