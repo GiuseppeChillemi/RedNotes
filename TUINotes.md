@@ -2,8 +2,6 @@
 
 Notes about Red Text User Interface
 
-[TOC]
-
 
 
 ## The "Terminal" backend
@@ -44,13 +42,13 @@ To use TUI you must first download Red TUI branch from GitHub using this [link](
 
 You need compile Red using [Rebol,](http://www.rebol.com) the ancestor of Red. Download it from the site www.rebol.com . Then click on *Get-It*
 
-![image-20230915025439999](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915025439999_1694740315..png)
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915025439999_1694740315..png" alt="image-20230915025439999" style="zoom: 67%;" />
 
 
 
 Now choose the version to download most suitable from your platform (you can use this link) [here](http://www.rebol.com/downloads.html) 
 
-![image-20230915032041982_1694740987..png](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915032041982_1694740987..png)
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915032041982_1694740987..png" alt="image-20230915032041982_1694740987..png" style="zoom:67%;" />
 
 
 
@@ -113,7 +111,7 @@ Run Rebol and enter this command in the console:
 
 `do/args %red/red.r "-r -t MSDOS %red/environment/console/cli/console.red"`
 
-![image-20230915025821887](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915025821887_1694740328..png)
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915025821887_1694740328..png" alt="image-20230915025821887" style="zoom:67%;" />
 
 If everything has been done properly, you will fine the file `console.red` in the same directory where Rebol il located
 
@@ -237,7 +235,7 @@ Note that `VID` has a new keyword: `tight` , it is used to instruct the GUI syst
 
 ## Panels and positioning
 
-
+(to be written)
 
 
 
@@ -292,106 +290,256 @@ When you draw a `text`, if you use one or more emoji you should add 2 characters
 
 ### Text
 
-center  font-color            ;	
+Print a simple text on screen
 
-text 10x1 font-color green "Page 2" return  
+```
+view/tight [
+	origin 3x3
+	text "This is a simple text!" 25x1 font-color green 
+]
+```
 
-text/font/color
+![image-20230916020305663](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916020305663.png)
+
+
+
+Special facet:
+
+`text/font/color`
 
 ### Base
 
-;	base 5x4 center middle "X^/Y"<br/>;	base 5x4 wrap middle "abcdefgh" return<br/>
+Display an area of text which can be automatically wrapped on the next line
+
+```
+view/tight [
+	origin 3x3
+	base 10x4 wrap middle "This is a text to show how base works" blue font-color white
+]
+```
+
+![image-20230916021642869](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916021642869.png)
 
 ### Rich-Text
 
-rich-text 40x2 transparent data [yellow "hello" u "underine" /u Strike Italic
+Display text with various colors or styles
+
+```
+view/tight [
+	origin 3x3
+	rich-text 40x2 transparent data [yellow "hello " green u "underline" /u ]
+]
+```
+
+![image-20230916022056537](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916022056537.png)
+
+Supported text attributes:
+
+
+
+underline `u` Text `/u`
+
+Strike `s` `/s`
+
+Italic `i` `/i`
+
+bold `b`  `/b`
+
+Color like `yellow`, `blue`
 
 ### Progress
 
-Supports DATA
+```
+
+view/tight [
+	origin 3x3
+	text "Progress bars: " 25x1 font-color green return
+	pad 0x1
+	Progress 20x1 80% red return
+	pad 0x1
+	Progress 20x1 20% blue
+]
+
+```
+
+![image-20230916020605989](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916020605989.png)
 
 ### Buttons
 
-button 15x1 "mouse click me" [t/text: "click"] on-dbl-click [t/text: "double click"] return
+Display rectangular button. You can navigate from one to another using TAB. To press the button hit ENTER
 
-Events:
+```
+view/tight [
+	origin 3x3
+	text "Hit one button: " 25x1 font-color green return
+	pad 0x1
+	button "click me" 20x1 [face/text: "Thank you"] 
+	button "or click here" 20x1 [face/text: "Thank you again!"] 
+]
+```
 
-`on-key [if event/key = #"^[" [unview/all]]`
+![image-20230916021100316](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916021100316.png)
+
+Special events:
+
+```
+on-dbl-click [face/text: "double click"] 
+```
 
 
 
 ### Fields
 
-19 hint "8888 **** **** 1234"
+Display an Horizontal rectangle you can use to enter text
+
+```
+view/tight [
+	origin 3x3
+	Text "Enter Text:" 10x1
+	pad 2x0 
+	Field 15x1  hint "xxxx xxxx xxxxx xxxx" red
+]
+```
+
+![image-20230916020000100](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916020000100.png)
 
 ### text-list
 
-;	text-list 13x3 select 2 data [<br/>;		"1 apple"<br/>;		"2 orange"<br/>;		"3 banana"<br/>;		"4 grape"<br/>;		"5 lychee"<br/>;		"6 pear"<br/>;		"7 watermelon"<br/>;	]
+Display a list of choices you can navigate with UP and DOWN cursor buttons, mouse wheel or click with your mouse or ENTER
+
+
+
+```
+view/tight [
+	origin 3x3
+	text "Please, select a color " 25x1 font-color green return
+	pad 0x1
+	text-list 13x5 select 2 data [
+		"1 apple"
+	    "2 orange"
+	    "3 banana"
+	    "4 grape"
+	    "5 lychee"
+	    "6 pear"
+	    "7 watermelon"
+	]
+]
+```
+
+![image-20230916021332123](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916021332123.png)
+
+
 
 ## Creating Styles
 
 If you often use a particular combination of size / fonts and other parameters, you can create a STYLE to avoid repetition and data entering
 
-
+Examples:
 
 ```
 style txt: text 10x1 font-color 255.0.127
+```
+
+Create a style called `TXT` , whose size is predefined to 10x1 and font color 255.0.123. So you can use it in code in this way:
+
+```
+TXT "Hello"
+```
+
+
+
+Other examples:
+
+```
 style field: field 10x1
+```
+
+```
 style b3: base black 4x3
 ```
 
+
+
+A style when used accepts missing parameters or the predefined onse
+
+
+
 ### Setting and changing a face
+
+If you define a text widget using:
+
+```
+mytext: Text "Hello" 10x1 font-color red
+```
+
+You can change its content using the defined name 
+
+````
+mytext\text "World!"
+````
+
+
+
+You can change any other visible or invisible element setting a facet of the face in the same way.
 
 
 
 ### Draw TEXT
 
-A `DRAW TEXT command` has been implemented in Terminal backend. 
+The terminal backend imprementing only the  `DRAW TEXT` command 
 
-draw [text 15x1 "~~~"]
-
-### With
-
-### List of facets
-
-| Facet       | Note                | Description |      |
-| ----------- | ------------------- | ----------- | ---- |
-| `size`,     |                     |             |      |
-| `offset`,   |                     |             |      |
-| `color`,    |                     |             |      |
-| `enabled?`, |                     |             |      |
-| `visible?`, |                     |             |      |
-| `text`,     |                     |             |      |
-| `rate`,     |                     |             |      |
-| `font`,     | font/color only     |             |      |
-| `para`,     |                     |             |      |
-| `data`      | Progress, Text-List |             |      |
-| `selected`  | text-list           |             |      |
-| `loose`     |                     |             |      |
-| `password`  |                     |             |      |
+```
+draw [text 15x1 "This is a test" ]
+```
 
 
 
 ### List of widgets supported parameters
 
-|             |      |      |
-| ----------- | ---- | ---- |
-| all-over    |      |      |
-| center      |      |      |
-| middle      |      |      |
-| hint        |      |      |
-| font-color  |      |      |
-| wrap        |      |      |
-| data        |      |      |
-| rate        |      |      |
-| transparent |      |      |
-|             |      |      |
+| Paramenter    | Description                                                  |
+| ------------- | ------------------------------------------------------------ |
+| `all-over`    |                                                              |
+| `center`      |                                                              |
+| `middle`      |                                                              |
+| `hint`        | Used in `field`, show an guide text in the widget that suggests the kind of input to enter |
+| `font-color`  | Set the color used for drawing the font                      |
+| `wrap`        | If the text is longer than the number of columns, then it goes to the next line |
+| `data`        | Some widgets have additional data like `text-list` where each element of a block is a line of the `text-list` |
+| `rate`        | Followed by a number, generates an `on-time` event number of times per seconds |
+| `transparent` | set the background color to the one of the base face (verify) |
+| `loose`       |                                                              |
+| password      |                                                              |
+|               |                                                              |
+
+
+
+### List of facets
+
+| Facet       | Note                                                         | Description                                           |
+| ----------- | ------------------------------------------------------------ | ----------------------------------------------------- |
+| `size`,     |                                                              | The size of widget as `integer`, `pair` or `point2d!` |
+| `offset`,   |                                                              |                                                       |
+| `color`,    |                                                              |                                                       |
+| `enabled?`, |                                                              |                                                       |
+| `visible?`, |                                                              |                                                       |
+| `text`,     |                                                              |                                                       |
+| `rate`,     | The number of times the on-time-event is triggered each second | The rate of the on-time event                         |
+| `font`,     |                                                              | font/color only                                       |
+| `para`,     |                                                              |                                                       |
+| `data`      |                                                              | progress, text-list                                   |
+| `selected`  | The line of the selected text                                | only text-list                                        |
+| `draw`      |                                                              | only TEXT                                             |
+|             |                                                              |                                                       |
+
+### With
+
+
 
 ### Colors palette
 
-| Colors |
-| ------ |
-|        |
+| Colors        |
+| ------------- |
+| To be written |
 
 
 
@@ -399,13 +547,11 @@ draw [text 15x1 "~~~"]
 
 ### Unloading the GUI
 
-```
-unview/all
-```
+These commands can be used to close you GUI
 
+`unview`
 
-
-
+`unview/all`
 
 
 
@@ -430,7 +576,11 @@ unview/all
 
 
 
-### Managin events
+### Managing events
+
+(To be written)
+
+### Managin input
 
 #### On-Key
 
