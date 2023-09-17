@@ -30,6 +30,12 @@ You can even create games with it!
 
 <img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230915025338827_1694740308..png" alt="image-20230915025338827" style="zoom: 50%;" />
 
+And show images with a single command
+
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230917172117933.png" alt="image-20230917172117933" style="zoom:67%;" />
+
+
+
 ## Prerequisites before continuing
 
 You should know 
@@ -711,6 +717,22 @@ view/tight [
 ```
 
 ![image-20230916021642869](https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230916021642869.png)
+
+### Image
+
+Red is capable of displaying images in the console.  It is sufficient to write a code like this:
+
+```
+view/tight [
+	origin 3x3
+	text 20x1 font-color green "A fantastic sunset" return
+	image 60x30 %sunset.png
+]
+```
+
+
+
+<img src="https://raw.githubusercontent.com/GiuseppeChillemi/_Images/main/image-20230917173257816.png" alt="image-20230917173257816" style="zoom:67%;" />
 
 ### Rich-Text
 
