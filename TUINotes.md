@@ -856,6 +856,16 @@ view/tight [
 
 
 
+### Draw TEXT
+
+The terminal backend imprementing only the  `DRAW TEXT` command 
+
+```
+draw [text 15x1 "This is a test" ]
+```
+
+
+
 ## Creating Styles
 
 If you often use a particular combination of size / fonts and other parameters, you can create a STYLE to avoid repetition and data entering
@@ -890,15 +900,27 @@ A style when used accepts missing parameters or the predefined onse
 
 
 
-### Setting and changing a face
+### Setting and changing the widget content using code
 
-If you define a text widget using:
+Now you know that below the visible part of each widget, there is a face: a Red object created from VID which interpreted your instructions. 
+
+Each object can be accessed using the `face` words from the code inside of its actors. If you create a text, you can change the face content randomly using the following code
+
+```
+view/tight [
+	text "Hello" 15x10 font-color red on-time 10 [face/text: random/omly ["World!" "Hello" "People!"]]
+]
+```
+
+You could also change the element of another `text` field but to do this you must give it a name.
 
 ```
 mytext: Text "Hello" 10x1 font-color red
 ```
 
-You can change its content using the defined name 
+Using the name `mytext` you access it from everywhere.
+
+This names are globals, so use a good naming structure to avoid collision with other elements. 
 
 ````
 mytext\text "World!"
@@ -908,15 +930,9 @@ mytext\text "World!"
 
 You can change any other visible or invisible element setting a facet of the face in the same way.
 
+## Reactivity
 
 
-### Draw TEXT
-
-The terminal backend imprementing only the  `DRAW TEXT` command 
-
-```
-draw [text 15x1 "This is a test" ]
-```
 
 
 
@@ -975,9 +991,11 @@ draw [text 15x1 "This is a test" ]
 
 These commands can be used to close you GUI
 
-`unview`
-
-`unview/all`
+| Command       | Parameter |                             |
+| ------------- | --------- | --------------------------- |
+| `unview`      | none      | Closes the current window   |
+| `unview/all`  | none      | Closes all windows          |
+| `unview/only` | object    | Closes the specified object |
 
 
 
@@ -1045,17 +1063,33 @@ To activate mouse processing:
 
 ### Timers
 
-Rate
+If you specify a timer as parameter in a face like
 
-on-time
+`text "Hello TUI" 10x1 color Red rate 10 on-time [>code here<]`
 
+The `on-time` event will start happening the `N` times per second and the code after the word `on-time` will be excuted.
 
+Be sure to not your code does not spend more than `1/n` times per second to be executed.
 
-
+(TBD: talk about multitaskin)
 
 ### Focus Chain
 
+(TBD: Draft)
+
+Each time you press `TAB` the current active widget changes. The next element is determined by the Focus CHAIN..... you can control it via....
+
+You can use `set-focus` inside your events to...
+
+
+
+
+
 ## Advanced Operations
+
+
+
+
 
 ### Writing a new layer
 
@@ -1067,7 +1101,7 @@ You can also use a child base face. Sets the `face/offset` to the place you want
 
 ### Clearing an area
 
-### Changing an area content
+
 
 ## Advanced topics
 
